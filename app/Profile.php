@@ -24,4 +24,6 @@ class Profile extends Model
 
         return $imagepath;
     }
+
+
 }
