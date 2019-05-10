@@ -11,15 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/','HomeController@index');
 Route::get('/profile', 'ProfilesController@create');
+
+Route::post('/profile/{user}', 'ProfilesController@index');
 Route::patch('/profile/{user}','ProfilesController@update')->name('profile.update');
 
 

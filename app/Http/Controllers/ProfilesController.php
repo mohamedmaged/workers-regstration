@@ -8,11 +8,9 @@ use Intervention\Image\Facades\Image;
 class ProfilesController extends Controller
 {
     //
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
     public function create(){
+        $this->middleware('auth');
 
         $user =auth()->user();
 
@@ -20,6 +18,7 @@ class ProfilesController extends Controller
     }
 
     public function update(User $user){
+        $this->middleware('auth');
 
 
         $data=request()->validate([
@@ -36,9 +35,13 @@ class ProfilesController extends Controller
             $imageArray=['image' => $imagePath];
             $data =array_merge($data,$imageArray);
         }
-        dd($data);
+//        dd($data);
         auth()->user()->profile()->update($data);
 
-        return redirect("/profile/{$user->id}");
+        return redirect("/home");
+    }
+    public function index(User $user){
+        $prof= $user->profile;
+        return $prof;
     }
 }
