@@ -17,7 +17,8 @@
 
                 </div>
                 <div class="d-flex justify-content-center "><p> {{jobTitle}}</p></div>
-                <p>  {{birthday}}</p>
+                <a :href="mailto"><div class="d-flex justify-content-center "><p> {{email}}</p></div></a>
+                <div class="d-flex justify-content-center "><p>  {{birthday}}</p></div>
                 <p>{{currentDescription}}</p>
 
             </div>
@@ -38,7 +39,9 @@
                 currentDescription: null,
                 birthday: null,
                 jobTitle: null,
-                name:null
+                name:null,
+                email:null,
+                mailto:null
             }
         },
 
@@ -46,23 +49,17 @@
             setContent(worker) {
 
                 axios.post('/profile/' + worker.id).then(response => {
-                    this.status = !this.status;
-                    console.log(response.data);
-                    console.log(worker);
                     this.image = '/storage/'+response.data.image;
-
                     this.birthday = 'Age :'+getAge(response.data.birthday);
-                    console.log();
                     this.jobTitle = response.data.jobTitle;
                     this.currentDescription = response.data.description;
 
-                    console.log('/storage/'+response.data.image);
                 }).catch(errors => {
 
                 });
-                console.log()
                 this.name = worker.name;
-
+                this.email= worker.email;
+                this.mailto = 'mailto:'+ worker.email;
             }
         }
     }

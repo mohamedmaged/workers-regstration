@@ -1790,6 +1790,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['workers'],
   mounted: function mounted() {
@@ -1802,7 +1803,9 @@ __webpack_require__.r(__webpack_exports__);
       currentDescription: null,
       birthday: null,
       jobTitle: null,
-      name: null
+      name: null,
+      email: null,
+      mailto: null
     };
   },
   methods: {
@@ -1810,18 +1813,14 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post('/profile/' + worker.id).then(function (response) {
-        _this.status = !_this.status;
-        console.log(response.data);
-        console.log(worker);
         _this.image = '/storage/' + response.data.image;
         _this.birthday = 'Age :' + getAge(response.data.birthday);
-        console.log();
         _this.jobTitle = response.data.jobTitle;
         _this.currentDescription = response.data.description;
-        console.log('/storage/' + response.data.image);
       })["catch"](function (errors) {});
-      console.log();
       this.name = worker.name;
+      this.email = worker.email;
+      this.mailto = 'mailto:' + worker.email;
     }
   }
 });
@@ -37174,7 +37173,15 @@ var render = function() {
           _c("p", [_vm._v(" " + _vm._s(_vm.jobTitle))])
         ]),
         _vm._v(" "),
-        _c("p", [_vm._v("  " + _vm._s(_vm.birthday))]),
+        _c("a", { attrs: { href: _vm.mailto } }, [
+          _c("div", { staticClass: "d-flex justify-content-center " }, [
+            _c("p", [_vm._v(" " + _vm._s(_vm.email))])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "d-flex justify-content-center " }, [
+          _c("p", [_vm._v("  " + _vm._s(_vm.birthday))])
+        ]),
         _vm._v(" "),
         _c("p", [_vm._v(_vm._s(_vm.currentDescription))])
       ])
